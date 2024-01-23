@@ -30,6 +30,9 @@ export interface Song {
   track_number: number;
   type: string;
   uri: string;
+
+  videoId: string;
+  subtitle: string;
 }
 
 export interface Album {

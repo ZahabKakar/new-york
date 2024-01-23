@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import axios from "axios";
 import ReactPlayer from "react-player";
+import Link from "next/link";
 export default function Home() {
   const [name, setName] = useState<String | undefined>("");
   const [artist, setArtist] = useState<String | undefined>("");
@@ -17,13 +18,6 @@ export default function Home() {
     setArtist(e.target.value);
   };
 
-  const handleSubmit = async () => {
-    const { data } = await axios.post("http://localhost:3000/api/", {
-      song: name,
-      artist: artist,
-    });
-    setVideoId(data.videoId);
-  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="header  w-full h-24 bg-blue-200 flex items-center">
@@ -40,17 +34,9 @@ export default function Home() {
           onChange={handleArtist}
         />
 
-        <Button className="w-24 h-12 m-2" onClick={handleSubmit}>
-          Go!
-        </Button>
-      </div>
-      <div className="main flex w-full h-64 bg-red-100 ">
-        <div className="w-2/3 h-64">
-          <ReactPlayer url={`https://www.youtube.com/watch?v=${videoId}`} />
-        </div>
-        <div className="w-1/3 h-64">
-          <h1>lyrics</h1>
-        </div>
+        <Link href={`/song?name=${name}&artist=${artist}`}>
+          <Button className="w-24 h-12 m-2">Go!</Button>
+        </Link>
       </div>
     </main>
   );
